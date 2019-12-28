@@ -84,8 +84,18 @@ function login() {
     $results['pageTitle'] = "Admin Login | eoa Inventar";
 
     if ( isset( $_POST['login'] ) ) {
-      if ( $_POST['username'] == ADMIN_USERNAME && $_POST['password'] == ADMIN_PASSWORD ) {
-        $_SESSION['username'] = ADMIN_USERNAME;
+      $conn = new PDO( DB_DSN, DB_USERNAME, DB_PASSWORD );
+      $st = $conn->prepare ( "SELECT Username, Password FROM users WHERE Username = :Username LIMIT 1" );
+      $st->bindValue( ":Username", $_POST['username'], PDO::PARAM_STR );
+      $st->execute();
+      $list = array();
+      while ( $row = $st->fetch() ) {
+        $list['user'] = $row;
+      }
+      $conn = null;
+      
+      if ( $_POST['username'] == $list['user']['Username'] && password_verify($_POST['password'],$list['user']['Password']) ) {
+        $_SESSION['username'] = $list['user']['Username'];
         header( "Location: index.php" );
       } 
       else {

@@ -53,3 +53,11 @@ CREATE TABLE geraeteInventur(
 	FOREIGN KEY (InventurId) REFERENCES inventur(Id),
 	FOREIGN KEY (GeraeteId) REFERENCES geraete(Id)
 );
+
+DROP TABLE IF EXISTS users;
+CREATE TABLE users(
+	Id int NOT NULL AUTO_INCREMENT,
+	Username varchar(255) NOT NULL,
+	Password varchar(255) NOT NULL,
+	PRIMARY KEY(Id)
+);

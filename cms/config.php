@@ -6,8 +6,6 @@ define("DB_USERNAME", "eoaInventar");
 define("DB_PASSWORD", "Test4711");
 define("CLASS_PATH", "classes");
 define("TEMPLATE_PATH", "templates");
-define("ADMIN_USERNAME", "admin");
-define("ADMIN_PASSWORD", "Test4711");
 require(CLASS_PATH."/Item.php");
 require(CLASS_PATH."/Category.php");
 require(CLASS_PATH."/Producer.php");
