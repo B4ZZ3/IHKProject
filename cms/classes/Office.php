@@ -56,8 +56,9 @@
         $st = $conn->prepare ( $sql );
         $st->bindValue( ":Name", $this->Name, PDO::PARAM_STR );
         $st->execute();
-        $this->id = $conn->lastInsertId();
+        $this->Id = $conn->lastInsertId();
         $conn = null;
+        return $this->Id;
     }
     
     public function update() {
@@ -82,6 +83,16 @@
         $st->bindValue( ":Id", $this->Id, PDO::PARAM_INT );
         $st->execute();
         $conn = null;
+    }
+
+    public function generateQRCode($InsertId) {
+        console_log($InsertId);
+        $fileName = 'buero_Id_'.$InsertId.'.png';
+        $pngAbsoluteFilePath = QRCODE_PATH_BUERO.$fileName;
+
+        if (!file_exists($pngAbsoluteFilePath)) {
+            QRcode::png('BueroId='.$this->Id, $pngAbsoluteFilePath);
+        }
     }
 }
 ?>

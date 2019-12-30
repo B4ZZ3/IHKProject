@@ -1,7 +1,7 @@
 <?php include "templates/include/header.php" ?>
 <?php include "templates/admin/adminNavigation.php" ?>
 
-<div class="container" style="margin-top:4%;">
+<div class="container" style="margin-top:6%;">
     <div class="d-flex align-items-center justify-content-between">
         <h1><?php echo $results['pageTitle']?></h1>
         <a class="btn btn-outline-secondary" href="javascript:history.back()"><i class="fas fa-angle-double-left"></i> Zurück</a>

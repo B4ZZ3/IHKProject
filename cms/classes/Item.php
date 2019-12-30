@@ -112,5 +112,14 @@
         $st->execute();
         $conn = null;
     }
+
+    public function generateQRCode() {
+        $fileName = 'geraet_InvNr_'.$this->Inventarnummer.'.png';
+        $pngAbsoluteFilePath = QRCODE_PATH_GERAETE.$fileName;
+
+        if (!file_exists($pngAbsoluteFilePath)) {
+            QRcode::png('Inventarnummer='.$this->Inventarnummer, $pngAbsoluteFilePath);
+        }
+    }
 }
 ?>

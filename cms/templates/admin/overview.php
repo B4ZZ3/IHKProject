@@ -1,7 +1,7 @@
 <?php include "templates/include/header.php" ?>
 <?php include "templates/admin/adminNavigation.php" ?>
 
-<div class="container" style="margin-top:4%;">
+<div class="container" style="margin-top:6%;">
     <div class="d-flex align-items-center justify-content-between">
         <h1>Das eoa - Inventar</h1>
         <div class="d-flex">
@@ -50,8 +50,11 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <p><strong>Inv.-Nr:</strong> <?php echo htmlspecialchars($modalItem->Inventarnummer)?></p>
-                    <p><strong>Hersteller:</strong> <?php echo htmlspecialchars($modalItem->Inventarnummer)?></p>
+                    <div id="printArea<?php echo $modalItem->Id?>">
+                        <strong>Inv.-Nr:</strong> <?php echo htmlspecialchars($modalItem->Inventarnummer)?><br />
+                        <img src="qrcodes/geraete/geraet_InvNr_<?php echo htmlspecialchars($modalItem->Inventarnummer)?>.png"/>
+                    </div>
+                    <a href="#" class="btn btn-outline-secondary" onclick="printQRCode('Inv.-Nr: <?php echo htmlspecialchars($modalItem->Inventarnummer)?>', 'qrcodes/geraete/geraet_InvNr_<?php echo htmlspecialchars($modalItem->Inventarnummer)?>.png'); return false;">QR-Code drucken</a>
                 </div>
             </div>
         </div>

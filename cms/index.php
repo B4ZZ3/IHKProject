@@ -1,5 +1,6 @@
 <?php
-require( "config.php" );
+require("config.php");
+require("lib/qrlib.php");
 session_start();
 $action = isset( $_GET['action'] ) ? $_GET['action'] : "";
 $username = isset( $_SESSION['username'] ) ? $_SESSION['username'] : "";
@@ -124,8 +125,8 @@ function newItem() {
     $item->InLager = (int)$_POST['InLager'];
     $item->storeFormValues( $_POST );
     $item->insert();
+    $item->generateQRCode();
     header( "Location: index.php?status=changesSaved" );
-
   } 
   elseif ( isset( $_POST['cancel'] ) ) {
     header( "Location: index.php" );
@@ -156,6 +157,7 @@ function editItem() {
     $item->InLager = (int)$_POST['InLager'];
     $item->storeFormValues($_POST);
     $item->update();
+    $item->generateQRCode();
     header( "Location: index.php?status=changesSaved" );
   } 
   elseif ( isset( $_POST['cancel'] ) ) {
@@ -233,7 +235,7 @@ function newProperty($property) {
     if ( isset( $_POST['saveChanges'] ) ) {
       $office = new Office;
       $office->storeFormValues( $_POST );
-      $office->insert();
+      $office->generateQRCode($office->insert());
       header( "Location: index.php?action=listOffices&status=changesSaved" );
     } 
     elseif ( isset( $_POST['cancel'] ) ) {
@@ -305,6 +307,7 @@ function editProperty($property) {
 
       $office->storeFormValues( $_POST );
       $office->update();
+      $office->generateQRCode();
       header( "Location: index.php?action=listOffices&status=changesSaved" );
     } 
     elseif ( isset( $_POST['cancel'] ) ) {
