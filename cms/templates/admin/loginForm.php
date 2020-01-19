@@ -7,7 +7,7 @@
     <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
   </head>
-  <body class="text-center login-form">
+  <body class="text-center flex-column-reverse login-form">
     <form class="form-signin" action="index.php?action=login" method="post">
       <img class="mb-4" src="images/logo_eoa_b.png" alt="Elements of Art" style="max-width:80%;">
       <h1 class="h3 mb-3 font-weight-normal">Bitte einloggen</h1>

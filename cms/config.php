@@ -5,6 +5,7 @@ date_default_timezone_set("Europe/Berlin");
 define("DB_DSN", "mysql:host=localhost;dbname=inventareoa");
 define("DB_USERNAME", "eoaInventar");
 define("DB_PASSWORD", "Test4711");
+define("USERNAME", "admin");
 define("CLASS_PATH", "classes");
 define("TEMPLATE_PATH", "templates");
 define("QRCODE_PATH_GERAETE", "qrcodes/geraete/");
@@ -13,6 +14,7 @@ require(CLASS_PATH."/Item.php");
 require(CLASS_PATH."/Category.php");
 require(CLASS_PATH."/Producer.php");
 require(CLASS_PATH."/Office.php");
+require(CLASS_PATH."/Inventur.php");
 
 function handleException($exception) {
     echo "Tut mir leid, es ist ein Problem aufgetreten. Bitte versuchen Sie es später noch einmal.";

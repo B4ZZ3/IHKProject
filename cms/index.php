@@ -74,6 +74,9 @@ switch ( $action ) {
   case 'viewAllInStock':
     viewList("inStock");
     break;
+  case 'viewInventur':
+    viewInventur();
+    break;
   default:
     listItems();
 }
@@ -95,7 +98,7 @@ function login() {
       }
       $conn = null;
       
-      if ( $_POST['username'] == $list['user']['Username'] && password_verify($_POST['password'],$list['user']['Password']) ) {
+      if ($_POST['username'] === USERNAME && password_verify($_POST['password'],$list['user']['Password']) ) {
         $_SESSION['username'] = $list['user']['Username'];
         header( "Location: index.php" );
       } 
@@ -478,13 +481,19 @@ function viewList($property) {
     $results['pageTitle'] ="Alle Geräte des Herstellers: ". $results['pageHeading'];
   }
   elseif($property === "inStock") {
-    // $producerId = ( isset( $_GET['producerId'] ) && $_GET['producerId'] ) ? (int)$_GET['producerId'] : null; 
-    // $results['producer'] = Producer::getById( $producerId );
     $data = Item::getList(null, null, null, 1);
     $results['items'] = $data['results'];
     $results['totalRows'] = $data['totalRows'];
     $results['pageTitle'] = "Alle Geräte im Lager";
   }
   require( TEMPLATE_PATH . "/admin/listAll.php" );
+}
+
+//Inventur-Section
+function viewInventur() {
+  $data = Inventur::getAll();
+  $results['inventur'] = $data['results'];
+  $results['totalRows'] = $data['totalRows'];
+  require( TEMPLATE_PATH . "/admin/listInventur.php" );
 }
 ?>
