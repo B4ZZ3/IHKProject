@@ -20,12 +20,8 @@ class Inventur {
     
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        $this->Id = $row['Id'];
-        $this->Datum = $row['Datum'];
-        $this->Mitarbeiter = $row['Mitarbeiter'];
-        $this->Finished = $row['Finished'];
+    
+        return $stmt;
     }
 
     function finish() {

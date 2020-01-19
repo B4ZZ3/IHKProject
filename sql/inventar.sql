@@ -45,7 +45,7 @@ CREATE TABLE inventur(
 	PRIMARY KEY (Id)
 );
 
-DROP TABLE IF EXISTS geraeteInventur;
+DROP TABLE IF EXISTS geraeteinventur;
 CREATE TABLE geraeteInventur(
 	InventurId int NOT NULL,
 	GeraeteId int NOT NULL,

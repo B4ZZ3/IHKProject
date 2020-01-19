@@ -12,22 +12,32 @@ $database = new Database();
 $db = $database->getConnection();
 
 $inventur = new Inventur($db);
-$inventur->Id = isset($_GET['Id']) ? $_GET['Id'] : die();
-$inventur->getUnfinished();
+$stmt = $inventur->getUnfinished();
+$num = $stmt->rowCount();
  
-if($inventur->Id!=null){
-    $inventur_arr = array(
-        "id" => $inventur->Id,
-        "datum" => $inventur->Datum,
-        "mitarbeiter" => $inventur->Mitarbeiter,    
-        "finished" => $inventur->Finished
-    );
+if($num>0){
+    $result=array();
+    $result["records"]=array();
+
+    while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+        extract($row);
+        $db_item = array(
+            "id" => $Id,
+            "datum" => $Datum,
+            "mitarbeiter" => $Mitarbeiter,
+            "inLager" => $InLager
+        );
+        array_push($result["records"], $db_item);
+    }
 
     http_response_code(200);
-    echo json_encode($inventur_arr);
+    echo json_encode($result);
 }
 else {
-    http_response_code(404);
-    echo json_encode(array("message" => "Die Inventur existiert nicht."));
+    http_response_code(200);
+
+    echo json_encode(
+        array("message" => "Keine Inventur gefunden.")
+    );
 }
 ?>

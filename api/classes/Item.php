@@ -55,10 +55,11 @@ class Item {
     }
 
     function getRemainingGeraete() {
-        $query = "SELECT g.Name, b.Name FROM geraete AS g INNER JOIN buero AS b ON g.BueroId = b.Id WHERE b.Id NOT IN (SELECT GeraeteId FROM geraeteInventur)"; 
+        $query = "SELECT g.Name, b.Name AS BueroName FROM " . $this->table_name . " AS g INNER JOIN buero AS b ON g.BueroId = b.Id WHERE b.Id NOT IN (SELECT GeraeteId FROM geraeteInventur)"; 
 
         $stmt = $this->conn->prepare($query);
-
+        $stmt->execute();
+        
         return $stmt;
     }
 }

@@ -16,6 +16,12 @@ body {
     border-radius: 5px;
 }
 
+@media (min-width: 768px){
+    .border-right-xl {
+        border-right: 1px solid #585858;
+    }
+}
+
 /* Login-Form */
 .login-form {
     height: 100vh;

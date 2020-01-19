@@ -1,0 +1,60 @@
+body {
+    height: 100vh !important;
+    margin: 0 !important;
+    color: #333;
+    background-color: #00a0b0;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    line-height: 1.5em;
+}
+
+.intro {
+    height: 100%;
+}
+
+.item-name {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 0 !important;
+}
+
+.btn-divider {
+    height: 80px;
+}
+
+.inputfile {
+    width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.errorMessage {
+    margin: 5px 0;
+    display: none;
+    background: red;
+    padding: 10px 20px;
+    color: white;
+    border-radius: 15px;
+    font-weight: bold;
+}
+
+.hintMessage {
+    margin: 5px 0;
+    background: yellow;
+    padding: 10px 20px;
+    color: black;
+    border-radius: 15px;
+    font-weight: bold;
+    font-size: 23px;
+}
+
+#submitQRCode {
+    padding-top: 10px;
+    display: none;
+}

@@ -97,7 +97,6 @@
         $st->bindValue(":BueroId", $this->BueroId, PDO::PARAM_INT);
         $st->bindValue(":InLager", $this->InLager, PDO::PARAM_INT);
         $st->bindValue(":Id", $this->Id, PDO::PARAM_INT);
-        console_log($this);
         $st->execute();
         $conn = null;
     }

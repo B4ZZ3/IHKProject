@@ -20,7 +20,10 @@
                     <a class="nav-link" href="index.php?action=listOffices">Büros</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="index.php?action=viewAllInStock">Lager</a>
+                    <a class="nav-link border-right-xl" href="index.php?action=viewAllInStock">Lager</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.php?action=viewInventur">Inventur</a>
                 </li>
             </ul>
             <div>
