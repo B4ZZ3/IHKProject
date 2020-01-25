@@ -8,7 +8,7 @@
   <div>Datum: <strong><?php echo ( $results['inventur']->Datum )?></strong></div>
   <div>Mitarbeiter: <strong><?php echo ( $results['inventur']->Mitarbeiter )?></strong></div>
   <div class="btn-divider"></div>
-  <a href="index.php?action=scanBuero" class="btn btn-outline-primary">Inventur weitermachen <i class="fas fa-angle-right"></i></button>  
+  <a href="index.php?action=scanPosition" class="btn btn-outline-primary">Inventur weitermachen <i class="fas fa-angle-right"></i></button>  
 <?php
   }
   else {

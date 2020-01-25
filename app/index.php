@@ -19,7 +19,7 @@ switch ( $action ) {
   case 'endInventur':
     endInventur();
     break;
-  case 'scanBuero':
+  case 'scanPosition':
     scan("office");
     break;
   case 'scanItem':
@@ -63,15 +63,18 @@ function finishInventur() {
 }
 
 function postQRCode() { 
-  if ( isset( $_POST['qrCodeBuero'] ) ) {
-      unset($_SESSION['BueroId']);
-      $_SESSION['BueroId'] = $_POST['qrValue'];
+  if ( isset( $_POST['qrCodePosition'] ) ) {
+      unset($_SESSION['PositionId']);
+      $_SESSION['PositionId'] = $_POST['qrValue'];
       header( "Location: index.php?action=scanItem" );
   } 
   else if ( isset( $_POST['qrCodeItem'] ) ) {
       unset($_SESSION['Inventarnummer']);
       $_SESSION['Inventarnummer'] = $_POST['qrValue'];
       insertGeraetInventur();
+      if(isset($_POST['submitDamage'])) {
+        damageGeraet();
+      }
       header( "Location: index.php?action=scanItem" );
   }
   else {
@@ -79,12 +82,19 @@ function postQRCode() {
   }
 }
 
+function damageGeraet() {
+  $item = new Item();
+  $splitInventarnummer = explode("=", $_SESSION['Inventarnummer']);
+  $item->Inventarnummer = (int)$splitInventarnummer[1];
+  $item->reportSchaden();
+}
+
 function insertGeraetInventur() {
   $results['inventur'] = Inventur::getUnfinished();
   $inventur = new Inventur;
   $inventur->Id = $results['inventur']->Id;
-  $splitBuero = explode("=", $_SESSION['BueroId']);
-  $inventur->BueroId = (int)$splitBuero[1];
+  $splitPosition = explode("=", $_SESSION['PositionId']);
+  $inventur->PositionId = (int)$splitPosition[1];
   $splitInventarnummer = explode("=", $_SESSION['Inventarnummer']);
   $inventur->GeraeteInv = (int)$splitInventarnummer[1];
   $inventur->insertGeraete();

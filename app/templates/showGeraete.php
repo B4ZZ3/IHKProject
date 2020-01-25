@@ -2,7 +2,7 @@
 <div class="container" style="margin-top:80px;">
     <div class="d-flex align-items-center justify-content-between">
         <h1 style="font-size:25px;">Die fehlenden Geräte</h1>
-        <a href="index.php?action=scanBuero" class="btn btn-outline-primary"><i class="fas fa-angle-left"></i> Zurück</a>
+        <a href="index.php?action=scanPosition" class="btn btn-outline-primary"><i class="fas fa-angle-left"></i> Zurück</a>
     </div>
     <hr />
     <ul id="item-overview">
@@ -20,7 +20,7 @@
         }
         else {
         ?>
-            <span>zuletzt im Büro: <strong><?php echo htmlspecialchars( $item->BueroName )?></strong></span>
+            <span>zuletzt im Büro: <strong><?php echo htmlspecialchars( $item->PositionName )?></strong></span>
         <?php
         }
         ?>

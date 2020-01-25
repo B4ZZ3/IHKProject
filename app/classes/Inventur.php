@@ -8,7 +8,7 @@ class Inventur {
     public $Finished = null;
 
     public $GeraeteInv = null;
-    public $BueroId = null;
+    public $PositionId = null;
 
     public function __construct($data=array()) {
         if(isset($data['Id'])) $this->Id = (int)$data['Id'];
@@ -57,7 +57,7 @@ class Inventur {
     function insertGeraete() {
         $conn = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
         $sql = "INSERT INTO geraeteinventur (InventurId, GeraeteId) VALUES(:InventurId, (SELECT Id FROM geraete WHERE Inventarnummer = :Inventarnummer))";
-        $sql2 = "UPDATE geraete SET BueroId = :BueroId WHERE Inventarnummer = :Inventarnummer";
+        $sql2 = "UPDATE geraete SET PositionId = :PositionId WHERE Inventarnummer = :Inventarnummer";
 
         $st = $conn->prepare($sql);
         $st2 = $conn->prepare($sql2);
@@ -65,7 +65,7 @@ class Inventur {
         $st->bindValue(":InventurId", $this->Id, PDO::PARAM_INT);
         $st->bindValue(":Inventarnummer", $this->GeraeteInv, PDO::PARAM_INT);
 
-        $st2->bindValue(":BueroId", $this->BueroId, PDO::PARAM_INT);
+        $st2->bindValue(":PositionId", $this->PositionId, PDO::PARAM_INT);
         $st2->bindValue(":Inventarnummer", $this->GeraeteInv, PDO::PARAM_INT);
         
         $st->execute();
