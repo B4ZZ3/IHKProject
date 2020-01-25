@@ -1,3 +1,4 @@
+DROP DATABASE IF EXISTS inventarEOA;
 CREATE DATABASE inventarEOA;
 
 DROP TABLE IF EXISTS kategorie;
@@ -14,8 +15,8 @@ CREATE TABLE hersteller(
 	PRIMARY KEY (Id)
 );
 
-DROP TABLE IF EXISTS buero;
-CREATE TABLE buero (
+DROP TABLE IF EXISTS positions;
+CREATE TABLE positions (
 	Id int NOT NULL AUTO_INCREMENT,
 	Name varchar(255),
 	PRIMARY KEY (Id)
@@ -28,12 +29,13 @@ CREATE TABLE geraete(
 	Name varchar(255),
 	HerstellerId int NOT NULL,
 	KategorieId int NOT NULL,
-	BueroId int,
+	PositionId int,
 	InLager tinyint(1) NOT NULL,
+	Schaden tinyint(1) NOT NULL DEFAULT 0,
 	PRIMARY KEY (Id, Inventarnummer),
 	FOREIGN KEY (HerstellerId) REFERENCES hersteller(Id),
 	FOREIGN KEY (KategorieId) REFERENCES kategorie(Id),
-	FOREIGN KEY (BueroId) REFERENCES buero(Id)
+	FOREIGN KEY (PositionId) REFERENCES positions(Id)
 );
 
 DROP TABLE IF EXISTS inventur;
@@ -46,7 +48,7 @@ CREATE TABLE inventur(
 );
 
 DROP TABLE IF EXISTS geraeteinventur;
-CREATE TABLE geraeteInventur(
+CREATE TABLE geraeteinventur(
 	InventurId int NOT NULL,
 	GeraeteId int NOT NULL,
 	PRIMARY KEY (InventurId, GeraeteId),
@@ -61,3 +63,6 @@ CREATE TABLE users(
 	Password varchar(255) NOT NULL,
 	PRIMARY KEY(Id)
 );
+
+INSERT INTO users (Username, Password) 
+VALUES ("admin", "$2y$07$ZvJgzaPcVfJJvFaXR1PRBOaLjruqAh/kWw4/o8T8XAZPIsH5xdHCW");
