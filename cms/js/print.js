@@ -3,7 +3,7 @@ function QRSourcetoPrint(invNummer, img) {
             "setTimeout('step2()', 10);}\n" +
             "function step2(){window.print();window.close()}\n" +
             "</scri" + "pt></head><body onload='step1()'>\n" +
-            "<strong>"+ invNummer +"</strong><br><img src='" + img + "' /></body></html>";
+            "<strong style='font-size:12px;'>"+ invNummer +"</strong><br><img width='40px;' height='40px;' src='" + img + "' /></body></html>";
 }
 function printQRCode(invNummer, img) {
     Pagelink = "about:blank";

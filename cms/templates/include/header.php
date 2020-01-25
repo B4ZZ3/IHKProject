@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="de">
   <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta name="author" content="Bjarne Christel">
     <title><?php echo htmlspecialchars( $results['pageTitle'] )?></title>
     <link rel="stylesheet" type="text/css" href="style/all.min.css"/>
     <link rel="stylesheet" type="text/css" href="style/style.css"/>

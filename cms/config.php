@@ -2,7 +2,7 @@
 // $2y$07$ZvJgzaPcVfJJvFaXR1PRBOaLjruqAh/kWw4/o8T8XAZPIsH5xdHCW
 ini_set("display_errors", true); //just for debugging, on live server false
 date_default_timezone_set("Europe/Berlin");
-define("DB_DSN", "mysql:host=localhost;dbname=inventareoa");
+define("DB_DSN", "mysql:host=localhost;dbname=inventareoa;charset=utf8");
 define("DB_USERNAME", "eoaInventar");
 define("DB_PASSWORD", "Test4711");
 define("USERNAME", "admin");
@@ -13,11 +13,11 @@ define("QRCODE_PATH_BUERO", "qrcodes/bueros/");
 require(CLASS_PATH."/Item.php");
 require(CLASS_PATH."/Category.php");
 require(CLASS_PATH."/Producer.php");
-require(CLASS_PATH."/Office.php");
+require(CLASS_PATH."/Position.php");
 require(CLASS_PATH."/Inventur.php");
 
 function handleException($exception) {
-    echo "Tut mir leid, es ist ein Problem aufgetreten. Bitte versuchen Sie es später noch einmal.";
+    echo "Entschuldigung, es ist ein Problem aufgetreten. Bitte versuchen Sie es später noch einmal.";
     error_log($exception->getMessage());
 }
 

@@ -25,7 +25,7 @@
         <li class="d-flex align-items-center justify-content-between overview-element">
                 <span class="item-name"><?php echo htmlspecialchars( $property->Name )?></span>
                 <div class="d-flex">
-                        <?php if($results['NameProperty']==="Office") {?>
+                        <?php if($results['NameProperty']==="Position") {?>
                         <a href="#" data-toggle="modal" data-target="#myModal<?php echo $property->Id?>"><div class="btn btn-outline-secondary"><i class="fas fa-eye icons"></i></div></a>
                         <?php } ?>
                         <a href="index.php?action=viewAllBy<?php echo $results['NameProperty']?>&amp;<?php echo $results['nameProperty']?>Id=<?php echo $property->Id?>"><div class="btn btn-outline-secondary"><i class="fas fa-list-ul"></i></div></a>
@@ -44,7 +44,7 @@
 
 <!--Overview-Modals-->
 <?php
-    if(is_array($results['properties']) && $results['NameProperty']==="Office") {
+    if(is_array($results['properties']) && $results['NameProperty']==="Position") {
         foreach($results['properties'] as $modalItem) {
 ?>
     <div id="myModal<?php echo $modalItem->Id?>" class="modal fade" role="dialog">

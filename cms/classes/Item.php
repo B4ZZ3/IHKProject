@@ -9,17 +9,19 @@
     public $Name = null;
     public $HerstellerId = null;
     public $KategorieId = null;
-    public $BueroId = null;
+    public $PositionId = null;
     public $InLager = null;
+    public $Schaden = null;
 
     public function __construct ($data=array()) {
         if(isset($data['Id'])) $this->Id = (int)$data['Id'];
         if(isset($data['Inventarnummer'])) $this->Inventarnummer = (int)$data['Inventarnummer'];
-        if(isset($data['Name'])) $this->Name = preg_replace( "/[^\.\,\-\_\'\"\@\?\!\:\$ a-zA-Z0-9()]/", "", $data['Name'] );
+        if(isset($data['Name'])) $this->Name = $data['Name'];
         if(isset($data['HerstellerId'])) $this->HerstellerId = (int)$data['HerstellerId'];
         if(isset($data['KategorieId'])) $this->KategorieId = (int)$data['KategorieId'];
-        if(isset($data['BueroId'])) $this->BueroId = (int)$data['BueroId'];
-        if(!empty($data['InLager'])) $this->InLager = (int)$data['InLager']; 
+        if(isset($data['PositionId'])) $this->PositionId = (int)$data['PositionId'];
+        if(!empty($data['InLager'])) $this->InLager = (int)$data['InLager'];
+        if(!empty($data['Schaden'])) $this->Schaden = (int)$data['Schaden'];  
     }
 
     public function storeFormValues($params) {
@@ -38,19 +40,21 @@
             return new Item($row);
     }
 
-    public static function getList($categoryId=null, $producerId=null, $officeId=null, $inStock=null) {
+    public static function getList($categoryId=null, $producerId=null, $positionId=null, $inStock=null, $damage=null) {
         $conn = new PDO( DB_DSN, DB_USERNAME, DB_PASSWORD );
         $categoryClause = $categoryId ? "WHERE KategorieId = :KategorieId" : "";
         $producerClause = $producerId ? "WHERE HerstellerId = :HerstellerId" : "";
-        $officeClause = $officeId ? "WHERE BueroId = :BueroId" : "";
+        $positionClause = $positionId ? "WHERE PositionId = :PositionId" : "";
         $inStockClause = $inStock ? "WHERE InLager = :InLager" : "";
-        $sql = "SELECT * FROM geraete $categoryClause $producerClause $officeClause $inStockClause ORDER BY Id ASC";
+        $damageClause = $damage ? "WHERE Schaden = :Schaden" : "";
+        $sql = "SELECT * FROM geraete $categoryClause $producerClause $positionClause $inStockClause $damageClause ORDER BY Id ASC";
 
         $st = $conn->prepare( $sql );
         if ( $categoryId ) $st->bindValue( ":KategorieId", $categoryId, PDO::PARAM_INT );
         if ( $producerId ) $st->bindValue( ":HerstellerId", $producerId, PDO::PARAM_INT );
-        if ( $officeId ) $st->bindValue( ":BueroId", $officeId, PDO::PARAM_INT );
+        if ( $positionId ) $st->bindValue( ":PositionId", $positionId, PDO::PARAM_INT );
         if ( $inStock ) $st->bindValue( ":InLager", $inStock, PDO::PARAM_INT );
+        if ( $damage ) $st->bindValue( ":Schaden", $damage, PDO::PARAM_INT );
         $st->execute();
         $list = array();
 
@@ -70,13 +74,13 @@
             trigger_error("Item::insert(): Versuch ein Item einzufügen, dessen Id bereits gesetzt ist (Id: $this->id).", E_USER_ERROR);
 
         $conn = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
-        $sql = "INSERT INTO geraete (Inventarnummer, Name, HerstellerId, KategorieId, BueroId, InLager) VALUES (:Inventarnummer, :Name, :HerstellerId, :KategorieId, :BueroId, :InLager)";
+        $sql = "INSERT INTO geraete (Inventarnummer, Name, HerstellerId, KategorieId, PositionId, InLager) VALUES (:Inventarnummer, :Name, :HerstellerId, :KategorieId, :PositionId, :InLager)";
         $st = $conn->prepare($sql);
         $st->bindValue(":Inventarnummer", $this->Inventarnummer, PDO::PARAM_INT);
         $st->bindValue(":Name", $this->Name, PDO::PARAM_STR);
         $st->bindValue(":HerstellerId", $this->HerstellerId, PDO::PARAM_INT);
         $st->bindValue(":KategorieId", $this->KategorieId, PDO::PARAM_INT);
-        $st->bindValue(":BueroId", $this->BueroId, PDO::PARAM_INT);
+        $st->bindValue(":PositionId", $this->PositionId, PDO::PARAM_INT);
         $st->bindValue(":InLager", $this->InLager, PDO::PARAM_INT);
         $st->execute();
         $this->id = $conn->lastInsertId();
@@ -88,13 +92,13 @@
             trigger_error("Item::update(): Versuch ein Item zu aktualisieren, dessen Id noch nicht gestzt ist.", E_USER_ERROR);
     
         $conn = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
-        $sql = "UPDATE geraete SET Inventarnummer = :Inventarnummer, Name = :Name, HerstellerId = :HerstellerId, KategorieId = :KategorieId, BueroId = :BueroId, InLager = :InLager WHERE Id = :Id";
+        $sql = "UPDATE geraete SET Inventarnummer = :Inventarnummer, Name = :Name, HerstellerId = :HerstellerId, KategorieId = :KategorieId, PositionId = :PositionId, InLager = :InLager WHERE Id = :Id";
         $st = $conn->prepare($sql);
         $st->bindValue(":Inventarnummer", $this->Inventarnummer, PDO::PARAM_INT);
         $st->bindValue(":Name", $this->Name, PDO::PARAM_STR);
         $st->bindValue(":HerstellerId", $this->HerstellerId, PDO::PARAM_INT);
         $st->bindValue(":KategorieId", $this->KategorieId, PDO::PARAM_INT);
-        $st->bindValue(":BueroId", $this->BueroId, PDO::PARAM_INT);
+        $st->bindValue(":PositionId", $this->PositionId, PDO::PARAM_INT);
         $st->bindValue(":InLager", $this->InLager, PDO::PARAM_INT);
         $st->bindValue(":Id", $this->Id, PDO::PARAM_INT);
         $st->execute();

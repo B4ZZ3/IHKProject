@@ -44,11 +44,11 @@
                 </li>
 
                 <li>
-                    <label for="BueroId">Büro</label>
-                    <select name="BueroId">
-                        <option value="1"<?php echo !$results['item']->BueroId ? " selected" : ""?>>kein Büro</option>
-                        <?php foreach ( $results['office'] as $office ) { ?>
-                        <option value="<?php echo $office->Id?>"<?php echo ( $office->Id == $results['item']->BueroId ) ? " selected" : ""?>><?php echo htmlspecialchars( $office->Name )?></option>
+                    <label for="PositionId">Büro</label>
+                    <select name="PositionId">
+                        <option value="1"<?php echo !$results['item']->PositionId ? " selected" : ""?>>kein Büro</option>
+                        <?php foreach ( $results['position'] as $position ) { ?>
+                        <option value="<?php echo $position->Id?>"<?php echo ( $position->Id == $results['item']->PositionId ) ? " selected" : ""?>><?php echo htmlspecialchars( $position->Name )?></option>
                         <?php } ?>
                     </select>
                 </li>

@@ -41,20 +41,20 @@ switch ( $action ) {
   case 'viewAllByCategory':
     viewList("category");
     break;
-  case 'listOffices':
-    listProperties("office");
+  case 'listPositions':
+    listProperties("position");
     break;
-  case 'newOffice':
-    newProperty("office");
+  case 'newPosition':
+    newProperty("position");
     break;
-  case 'editOffice':
-    editProperty("office");
+  case 'editPosition':
+    editProperty("position");
     break;
-  case 'deleteOffice':
-    deleteProperty("office");
+  case 'deletePosition':
+    deleteProperty("position");
     break;
-  case 'viewAllByOffice':
-    viewList("office");
+  case 'viewAllByPosition':
+    viewList("position");
     break;
   case 'listProducer':
     listProperties("producer");
@@ -73,6 +73,9 @@ switch ( $action ) {
     break;
   case 'viewAllInStock':
     viewList("inStock");
+    break;
+  case 'viewDamageItems':
+    viewList("damage");
     break;
   case 'viewInventur':
     viewInventur();
@@ -140,8 +143,8 @@ function newItem() {
     $results['categories'] = $data['results'];
     $data = Producer::getList();
     $results['producer'] = $data['results'];
-    $data = Office::getList();
-    $results['office'] = $data['results'];
+    $data = Position::getList();
+    $results['position'] = $data['results'];
     require( TEMPLATE_PATH . "/admin/editItem.php" );
   }
 }
@@ -172,8 +175,8 @@ function editItem() {
     $results['categories'] = $data['results'];
     $data = Producer::getList();
     $results['producer'] = $data['results'];
-    $data = Office::getList();
-    $results['office'] = $data['results'];
+    $data = Position::getList();
+    $results['position'] = $data['results'];
     require( TEMPLATE_PATH . "/admin/editItem.php" );
   }
 }
@@ -229,23 +232,23 @@ function newProperty($property) {
       require( TEMPLATE_PATH . "/admin/editProperty.php" );
     }
   }
-  elseif($property === "office") {
+  elseif($property === "position") {
     $results['pageTitle'] = "Neues Büro";
-    $results['formAction'] = "newOffice";
-    $results['nameId'] = "officeId";
+    $results['formAction'] = "newPosition";
+    $results['nameId'] = "positionId";
     $results['placeholder'] = "des Büros";
 
     if ( isset( $_POST['saveChanges'] ) ) {
-      $office = new Office;
-      $office->storeFormValues( $_POST );
-      $office->generateQRCode($office->insert());
-      header( "Location: index.php?action=listOffices&status=changesSaved" );
+      $position = new Position;
+      $position->storeFormValues( $_POST );
+      $position->generateQRCode($position->insert());
+      header( "Location: index.php?action=listPositions&status=changesSaved" );
     } 
     elseif ( isset( $_POST['cancel'] ) ) {
-      header( "Location: index.php?action=listOffices" );
+      header( "Location: index.php?action=listPositions" );
     } 
     else {
-      $results['property'] = new Office;
+      $results['property'] = new Position;
       require( TEMPLATE_PATH . "/admin/editProperty.php" );
     }
   }
@@ -296,28 +299,28 @@ function editProperty($property) {
       require( TEMPLATE_PATH . "/admin/editProperty.php" );
     }
   }
-  elseif($property === "office") {
+  elseif($property === "position") {
     $results['pageTitle'] = "Büro bearbeiten";
-    $results['formAction'] = "editOffice";
-    $results['nameId'] = "officeId";
+    $results['formAction'] = "editPosition";
+    $results['nameId'] = "positionId";
     $results['placeholder'] = "des Büros";
 
     if ( isset( $_POST['saveChanges'] ) ) {
-      if ( !$office = Office::getById( (int)$_POST['officeId'] ) ) {
-        header( "Location: index.php?action=listOffices&error=officeNotFound" );
+      if ( !$position = Position::getById( (int)$_POST['positionId'] ) ) {
+        header( "Location: index.php?action=listPositions&error=positionNotFound" );
         return;
       }
 
-      $office->storeFormValues( $_POST );
-      $office->update();
-      $office->generateQRCode();
-      header( "Location: index.php?action=listOffices&status=changesSaved" );
+      $position->storeFormValues( $_POST );
+      $position->update();
+      $position->generateQRCode();
+      header( "Location: index.php?action=listPositions&status=changesSaved" );
     } 
     elseif ( isset( $_POST['cancel'] ) ) {
-      header( "Location: index.php?action=listOffices" );
+      header( "Location: index.php?action=listPositions" );
     } 
     else {
-      $results['property'] = Office::getById( (int)$_GET['officeId'] );
+      $results['property'] = Position::getById( (int)$_GET['positionId'] );
       require( TEMPLATE_PATH . "/admin/editProperty.php" );
     }
   }
@@ -362,19 +365,19 @@ function deleteProperty($property) {
     $category->delete();
     header( "Location: index.php?action=listCategories&status=categoryDeleted" );
   }
-  elseif($property === "office") {
-    if ( !$office = Office::getById( (int)$_GET['officeId'] ) ) {
-      header( "Location: index.php?action=listOffices&error=officeNotFound" );
+  elseif($property === "position") {
+    if ( !$position = Position::getById( (int)$_GET['positionId'] ) ) {
+      header( "Location: index.php?action=listPositions&error=positionNotFound" );
       return;
     }
-    $items = Item::getList($office->Id );
+    $items = Item::getList($position->Id );
 
     if ( $items['totalRows'] > 0 ) {
-      header( "Location: index.php?action=listOffices&error=officeContainsItems" );
+      header( "Location: index.php?action=listPositions&error=positionContainsItems" );
       return;
     }
-    $office->delete();
-    header( "Location: index.php?action=listOffices&status=officeDeleted" );
+    $position->delete();
+    header( "Location: index.php?action=listPositions&status=positionDeleted" );
   }
   elseif($property === "producer") {
     if ( !$producer = Producer::getById( (int)$_GET['producerId'] ) ) {
@@ -412,22 +415,22 @@ function listProperties($property) {
       if ( $_GET['status'] == "categoryDeleted" ) $results['statusMessage'] = "Die Kategorie wurde erfolgreich gelöscht.";
     }
   }
-  elseif($property === "office") {
-    $data = Office::getList();
+  elseif($property === "position") {
+    $data = Position::getList();
     $results['properties'] = $data['results'];
     $results['totalRows'] = $data['totalRows'];
     $results['pageTitle'] = "Alle Büros";
-    $results['NameProperty'] = "Office";
-    $results['nameProperty'] = "office";
+    $results['NameProperty'] = "Position";
+    $results['nameProperty'] = "position";
 
     if ( isset( $_GET['error'] ) ) {
-      if ( $_GET['error'] == "officeNotFound" ) $results['errorMessage'] = "Fehler: Das Büro wurde nicht gefunden.";
-      if ( $_GET['error'] == "officeContainsItems" ) $results['errorMessage'] = "Fehler: Büro enthält Geräte. Löschen Sie die Geräte, oder ordnen Sie sie einem anderen Büro zu, bevor Sie dieses Büro löschen.";
+      if ( $_GET['error'] == "positionNotFound" ) $results['errorMessage'] = "Fehler: Das Büro wurde nicht gefunden.";
+      if ( $_GET['error'] == "positionContainsItems" ) $results['errorMessage'] = "Fehler: Büro enthält Geräte. Löschen Sie die Geräte, oder ordnen Sie sie einem anderen Büro zu, bevor Sie dieses Büro löschen.";
     }
 
     if ( isset( $_GET['status'] ) ) {
       if ( $_GET['status'] == "changesSaved" ) $results['statusMessage'] = "Deine Änderungen wurden gespeichert.";
-      if ( $_GET['status'] == "officeDeleted" ) $results['statusMessage'] = "Das Büro wurde erfolgreich gelöscht.";
+      if ( $_GET['status'] == "positionDeleted" ) $results['statusMessage'] = "Das Büro wurde erfolgreich gelöscht.";
     }
   }
   elseif($property === "producer") {
@@ -456,25 +459,25 @@ function viewList($property) {
   if($property === "category") {
     $categoryId = ( isset( $_GET['categoryId'] ) && $_GET['categoryId'] ) ? (int)$_GET['categoryId'] : null; 
     $results['category'] = Category::getById( $categoryId );
-    $data = Item::getList($results['category'] ? $results['category']->Id : null, null, null, null);
+    $data = Item::getList($results['category'] ? $results['category']->Id : null, null, null, null, null);
     $results['items'] = $data['results'];
     $results['totalRows'] = $data['totalRows'];
     $results['pageHeading'] = $results['category'] ?  $results['category']->Name : "Alle Geräte";
     $results['pageTitle'] ="Alle Geräte der Kategorie: ". $results['pageHeading'];
   }
-  elseif($property === "office") {
-    $officeId = ( isset( $_GET['officeId'] ) && $_GET['officeId'] ) ? (int)$_GET['officeId'] : null; 
-    $results['office'] = Office::getById( $officeId );
-    $data = Item::getList(null, null, $results['office'] ? $results['office']->Id : null, null);
+  elseif($property === "position") {
+    $positionId = ( isset( $_GET['positionId'] ) && $_GET['positionId'] ) ? (int)$_GET['positionId'] : null; 
+    $results['position'] = Position::getById( $positionId );
+    $data = Item::getList(null, null, $results['position'] ? $results['position']->Id : null, null, null);
     $results['items'] = $data['results'];
     $results['totalRows'] = $data['totalRows'];
-    $results['pageHeading'] = $results['office'] ?  $results['office']->Name : "Alle Geräte";
+    $results['pageHeading'] = $results['position'] ?  $results['position']->Name : "Alle Geräte";
     $results['pageTitle'] ="Alle Geräte in dem Büro: ". $results['pageHeading'];
   }
   elseif($property === "producer") {
     $producerId = ( isset( $_GET['producerId'] ) && $_GET['producerId'] ) ? (int)$_GET['producerId'] : null; 
     $results['producer'] = Producer::getById( $producerId );
-    $data = Item::getList(null, $results['producer'] ? $results['producer']->Id : null, null, null);
+    $data = Item::getList(null, $results['producer'] ? $results['producer']->Id : null, null, null, null);
     $results['items'] = $data['results'];
     $results['totalRows'] = $data['totalRows'];
     $results['pageHeading'] = $results['producer'] ?  $results['producer']->Name : "Alle Geräte";
@@ -486,7 +489,14 @@ function viewList($property) {
     $results['totalRows'] = $data['totalRows'];
     $results['pageTitle'] = "Alle Geräte im Lager";
   }
+  elseif($property === "damage") {
+    $data = Item::getList(null, null, null, null, 1);
+    $results['items'] = $data['results'];
+    $results['totalRows'] = $data['totalRows'];
+    $results['pageTitle'] = "Alle kaputten Geräte";
+  }
   require( TEMPLATE_PATH . "/admin/listAll.php" );
+  
 }
 
 //Inventur-Section

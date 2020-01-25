@@ -17,10 +17,13 @@
                     <a class="nav-link" href="index.php?action=listProducer">Hersteller</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="index.php?action=listOffices">Büros</a>
+                    <a class="nav-link" href="index.php?action=listPositions">Büros</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link border-right-xl" href="index.php?action=viewAllInStock">Lager</a>
+                    <a class="nav-link" href="index.php?action=viewAllInStock">Lager</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link border-right-xl" href="index.php?action=viewDamageItems">Kaputte Geräte</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="index.php?action=viewInventur">Inventur</a>

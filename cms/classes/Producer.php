@@ -9,7 +9,7 @@
     
     public function __construct( $data=array() ) {
         if ( isset( $data['Id'] ) ) $this->Id = (int) $data['Id'];
-        if ( isset( $data['Name'] ) ) $this->Name = preg_replace ( "/[^\.\,\-\_\'\"\@\?\!\:\$ a-zA-Z0-9()]/", "", $data['Name'] );
+        if ( isset( $data['Name'] ) ) $this->Name = $data['Name'];
     }
     
     public function storeFormValues ( $params ) {
