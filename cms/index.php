@@ -324,11 +324,12 @@ function editProperty($property) {
       require( TEMPLATE_PATH . "/admin/editProperty.php" );
     }
   }
-  elseif($property === "prodcuer") {
+  elseif($property === "producer") {
     $results['pageTitle'] = "Hersteller bearbeiten";
     $results['formAction'] = "editProducer";
     $results['nameId'] = "producerId";
     $results['placeholder'] = "des Herstellers";
+    console_log("ja");
 
     if ( isset( $_POST['saveChanges'] ) ) {
       if ( !$producer = Producer::getById( (int)$_POST['producerId'] ) ) {

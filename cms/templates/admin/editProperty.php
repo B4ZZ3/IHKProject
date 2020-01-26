@@ -9,16 +9,12 @@
 <?php if ( isset( $results['errorMessage'] ) ) { ?>
         <div class="errorMessage"><?php echo $results['errorMessage'] ?></div>
 <?php } ?>
-
-        <ul>
-
-          <li>
-            <label for="Name">Name <?php echo $results['placeholder'] ?></label>
-            <input type="text" name="Name" id="Name" placeholder="Name <?php echo $results['placeholder'] ?>" required autofocus maxlength="255" value="<?php echo htmlspecialchars( $results['property']->Name )?>" />
-          </li>
-
-        </ul>
-
+        <div class="form-group form-row">
+          <label class="col-sm-2 col-form-label" for="Name">Name <?php echo $results['placeholder'] ?></label>
+          <div class="col-sm-10">
+            <input class="form-control" type="text" name="Name" id="Name" placeholder="Name <?php echo $results['placeholder'] ?>" required autofocus maxlength="255" value="<?php echo htmlspecialchars( $results['property']->Name )?>" />
+          </div>
+        </div>
         <div class="buttons">
           <input class="btn btn-outline-success" type="submit" name="saveChanges" value="Änderungen speichern" />
           <input class="btn btn-outline-danger" type="submit" formnovalidate name="cancel" value="Abbrechen" />
