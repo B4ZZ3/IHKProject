@@ -6,7 +6,7 @@
         <h1>Alle durchgeführten Inventuren</h1>
     </div>
     <hr />
-    <ul id="item-overview">
+    <ul id="overview-list">
 
 <?php
     if(is_array($results['inventur'])) {

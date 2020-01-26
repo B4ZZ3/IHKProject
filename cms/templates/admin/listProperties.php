@@ -17,7 +17,7 @@
         <div class="statusMessage"><?php echo $results['statusMessage'] ?></div>
 <?php } ?>
 
-        <ul>
+        <ul id="overview-list">
 <?php
     if(is_array($results['properties'])) {
         foreach( $results['properties'] as $property ) { 

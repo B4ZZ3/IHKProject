@@ -1,7 +1,7 @@
 <?php include "templates/include/header.php" ?>
 <?php include "templates/admin/adminNavigation.php" ?>
 
-<div class="container" style="margin-top:6%; margin-bottom:800px;">
+<div class="container" style="margin-top:6%;">
     <div class="d-flex align-items-center justify-content-between">
         <h1>Das eoa - Inventar</h1>
         <div class="d-flex">
@@ -17,7 +17,7 @@
 <?php if ( isset( $results['statusMessage'] ) ) { ?>
         <div class="statusMessage"><?php echo $results['statusMessage'] ?></div>
 <?php } ?>
-    <ul id="item-overview">
+    <ul id="overview-list">
 
 <?php
     if(is_array($results['items'])) {
@@ -66,5 +66,4 @@
 <hr />
 <p>Insgesamt <?php echo $results['totalRows']?> Gerät<?php echo ( $results['totalRows'] != 1 ) ? 'e' : '' ?></p>
 </div>
-<div>Hallo</div>
 <?php include "templates/include/footer.php" ?>

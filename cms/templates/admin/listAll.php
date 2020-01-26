@@ -7,7 +7,7 @@
         <a class="btn btn-outline-secondary" href="javascript:history.back()"><i class="fas fa-angle-double-left"></i> Zurück</a>
     </div>
     <hr />
-    <ul>
+    <ul id="overview-list">
 
 <?php
     if(is_array($results['items'])) {
