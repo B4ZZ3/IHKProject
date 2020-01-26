@@ -12,6 +12,7 @@
         foreach($results["items"] as $item) {
 ?>
         <li class="d-flex align-items-center justify-content-between overview-element">
+            <span>Inv.-Nr: <strong><?php echo htmlspecialchars( $item->Inventarnummer )?></strong></span>
             <span class="item-name"><?php echo htmlspecialchars( $item->Name )?></span>
         <?php if($item->InLager != null ) {
         ?>
@@ -20,7 +21,7 @@
         }
         else {
         ?>
-            <span>zuletzt im Büro: <strong><?php echo htmlspecialchars( $item->PositionName )?></strong></span>
+            <span>zuletzt: <strong><?php echo htmlspecialchars( $item->PositionName )?></strong></span>
         <?php
         }
         ?>

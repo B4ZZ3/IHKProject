@@ -14,7 +14,7 @@
     <link rel="stylesheet" type="text/css" href="style/style.css"/>
     <link rel="stylesheet" type="text/css" href="style/bootstrap.min.css"/>
     <script type="text/javascript" src="lib/qrLib.js"></script>
-    <!-- <script type="text/javascript" src="js/register.js"></script> -->
+    <script type="text/javascript" src="js/register.js"></script>
     <title>eoaInventur</title>
   </head>
   <body>

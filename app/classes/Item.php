@@ -18,7 +18,7 @@ class Item {
 
     function getRemainingGeraete() {
         $conn = new PDO( DB_DSN, DB_USERNAME, DB_PASSWORD );
-        $sql = "SELECT g.Name, g.InLager, b.Name AS PositionName FROM geraete AS g INNER JOIN positions AS b ON g.PositionId = b.Id WHERE g.Id NOT IN (SELECT GeraeteId FROM geraeteInventur) ORDER BY g.Id ASC"; 
+        $sql = "SELECT g.Name, g.Inventarnummer, g.InLager, b.Name AS PositionName FROM geraete AS g INNER JOIN positions AS b ON g.PositionId = b.Id WHERE g.Id NOT IN (SELECT GeraeteId FROM geraeteInventur) ORDER BY g.Id ASC"; 
         $st = $conn->prepare( $sql );
         $st->execute();
         $list = array();
