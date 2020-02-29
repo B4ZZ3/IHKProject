@@ -1,53 +1,39 @@
-const staticCacheName = 'site-static-v2';
-const dynamicCacheName = 'site-dynamic-v1';
-const assets = [
-    'index.php',
-    'style/style.css',
-    'style/bootstrap.min.js',
-    'images/logo_eoa.png',
-    'offline.php',
-    'templates/include/header.php',
-    'templates/include/footer.php'
-];
+const OFFLINE_VERSION = 1;
+const CACHE_NAME = 'offline';
+const OFFLINE_URL = 'offline.php';
 
-// install event
-self.addEventListener('install', evt => {
-  //console.log('service worker installed');
-  evt.waitUntil(
-    caches.open(staticCacheName).then((cache) => {
-      cache.addAll(assets);
-    })
-  );
+self.addEventListener('install', (event) => {
+  event.waitUntil((async () => {
+    const cache = await caches.open(CACHE_NAME);
+    await cache.add(new Request(OFFLINE_URL, {cache: 'reload'}));
+  })());
 });
 
-// activate event
-self.addEventListener('activate', evt => {
-  //console.log('service worker activated');
-  evt.waitUntil(
-    caches.keys().then(keys => {
-      return Promise.all(keys
-        .filter(key => key !== staticCacheName && key !== dynamicCacheName)
-        .map(key => caches.delete(key))
-      );
-    })
-  );
+self.addEventListener('activate', (event) => {
+  event.waitUntil((async () => {
+    if('navigationPreload' in self.registration) {
+      await self.registration.navigationPreload.enable();
+    }
+  })());
+  self.ClientRectList.claim();
 });
 
-// fetch event
-self.addEventListener('fetch', evt => {
-  evt.respondWith(
-    caches.match(evt.request).then(cacheRes => {
-      return cacheRes || fetch(evt.request).then(fetchRes => {
-        return caches.open(dynamicCacheName).then(cache => {
-          cache.put(evt.request.url, fetchRes.clone());
-          return fetchRes;
-        })
-      });
-    }).catch(() => {
-      if(evt.request.url.indexOf('.php') > -1){
-        return caches.match('offline.php');
-      } 
-    })
-  );
+self.addEventListener('fetch', (event) => {
+  if(event.request.mode ==='navigate')  {
+    event.respondWith((async () => {
+      try {
+        const preloadResponse = await event.preloadResponse;
+        if(preoadResponse) {
+          return preloadResponse;
+        }
+        const networkResponse = await fetch(event.request);
+        return networkResponse;
+      }
+      catch (error) {
+        const cache = await caches.open(CACHE_NAME);
+        const cachedResponse = await cache.match(OFFLINE_URL);
+        return cachedResponse;
+      }
+    })());
+  }
 });
-
