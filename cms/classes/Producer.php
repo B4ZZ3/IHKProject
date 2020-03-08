@@ -18,7 +18,7 @@
 
     public static function getById( $Id ) {
         $conn = new PDO( DB_DSN, DB_USERNAME, DB_PASSWORD );
-        $sql = "SELECT * FROM hersteller WHERE Id = :Id";
+        $sql = "SELECT * FROM producer WHERE Id = :Id";
         $st = $conn->prepare( $sql );
         $st->bindValue( ":Id", $Id, PDO::PARAM_INT );
         $st->execute();
@@ -30,7 +30,7 @@
     
     public static function getList() {
         $conn = new PDO( DB_DSN, DB_USERNAME, DB_PASSWORD );
-        $sql = "SELECT * FROM hersteller ORDER BY Name ASC";
+        $sql = "SELECT * FROM producer ORDER BY Name ASC";
 
         $st = $conn->prepare( $sql );
         $st->execute();
@@ -52,7 +52,7 @@
             trigger_error ( "Hersteller::insert(): Versuch einen Hersteller einzufügen, dessen Id bereits gesetzt ist (Id: $this->Id).", E_USER_ERROR );
 
         $conn = new PDO( DB_DSN, DB_USERNAME, DB_PASSWORD );
-        $sql = "INSERT INTO hersteller (Name) VALUES (:Name)";
+        $sql = "INSERT INTO producer (Name) VALUES (:Name)";
         $st = $conn->prepare ( $sql );
         $st->bindValue( ":Name", $this->Name, PDO::PARAM_STR );
         $st->execute();
@@ -65,7 +65,7 @@
             trigger_error ( "Hersteller::update(): Versuch einen Hersteller zu aktualisieren, dessen Id noch nicht gesetzt ist.", E_USER_ERROR );
 
         $conn = new PDO( DB_DSN, DB_USERNAME, DB_PASSWORD );
-        $sql = "UPDATE hersteller SET Name=:Name WHERE Id = :Id";
+        $sql = "UPDATE producer SET Name=:Name WHERE Id = :Id";
         $st = $conn->prepare ( $sql );
         $st->bindValue( ":Name", $this->Name, PDO::PARAM_STR );
         $st->bindValue( ":Id", $this->Id, PDO::PARAM_INT );
@@ -78,7 +78,7 @@
             trigger_error ( "Hersteller::delete(): Versuch einen Hersteller zu löschen, dessen Id noch nicht gesetzt ist.", E_USER_ERROR );
 
         $conn = new PDO( DB_DSN, DB_USERNAME, DB_PASSWORD );
-        $st = $conn->prepare ( "DELETE FROM hersteller WHERE Id = :Id LIMIT 1" );
+        $st = $conn->prepare ( "DELETE FROM producer WHERE Id = :Id LIMIT 1" );
         $st->bindValue( ":Id", $this->Id, PDO::PARAM_INT );
         $st->execute();
         $conn = null;

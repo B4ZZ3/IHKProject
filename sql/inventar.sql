@@ -1,15 +1,15 @@
-DROP DATABASE IF EXISTS inventarEOA;
-CREATE DATABASE inventarEOA;
+DROP DATABASE IF EXISTS inventoryEOA;
+CREATE DATABASE inventoryEOA;
 
-DROP TABLE IF EXISTS kategorie;
-CREATE TABLE kategorie(
+DROP TABLE IF EXISTS category;
+CREATE TABLE category(
 	Id int NOT NULL AUTO_INCREMENT,
 	Name varchar(255),
 	PRIMARY KEY (Id)
 );
 
-DROP TABLE IF EXISTS hersteller;
-CREATE TABLE hersteller(
+DROP TABLE IF EXISTS producer;
+CREATE TABLE producer(
 	Id int NOT NULL AUTO_INCREMENT,
 	Name varchar(255),
 	PRIMARY KEY (Id)
@@ -22,8 +22,8 @@ CREATE TABLE positions (
 	PRIMARY KEY (Id)
 );
 
-DROP TABLE IF EXISTS geraete;
-CREATE TABLE geraete(
+DROP TABLE IF EXISTS item;
+CREATE TABLE item(
 	Id int NOT NULL AUTO_INCREMENT,
 	Inventarnummer int NOT NULL,
 	Name varchar(255),
@@ -33,13 +33,13 @@ CREATE TABLE geraete(
 	InLager tinyint(1) NOT NULL,
 	Schaden tinyint(1) NOT NULL DEFAULT 0,
 	PRIMARY KEY (Id, Inventarnummer),
-	FOREIGN KEY (HerstellerId) REFERENCES hersteller(Id),
-	FOREIGN KEY (KategorieId) REFERENCES kategorie(Id),
+	FOREIGN KEY (HerstellerId) REFERENCES producer(Id),
+	FOREIGN KEY (KategorieId) REFERENCES category(Id),
 	FOREIGN KEY (PositionId) REFERENCES positions(Id)
 );
 
-DROP TABLE IF EXISTS inventur;
-CREATE TABLE inventur(
+DROP TABLE IF EXISTS inventory;
+CREATE TABLE inventory(
 	Id int NOT NULL AUTO_INCREMENT,
 	Datum TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	Mitarbeiter varchar(255) NOT NULL,
@@ -47,13 +47,13 @@ CREATE TABLE inventur(
 	PRIMARY KEY (Id)
 );
 
-DROP TABLE IF EXISTS geraeteinventur;
-CREATE TABLE geraeteinventur(
+DROP TABLE IF EXISTS iteminventory;
+CREATE TABLE iteminventory(
 	InventurId int NOT NULL,
 	GeraeteId int NOT NULL,
 	PRIMARY KEY (InventurId, GeraeteId),
-	FOREIGN KEY (InventurId) REFERENCES inventur(Id),
-	FOREIGN KEY (GeraeteId) REFERENCES geraete(Id)
+	FOREIGN KEY (InventurId) REFERENCES inventory(Id),
+	FOREIGN KEY (GeraeteId) REFERENCES item(Id)
 );
 
 DROP TABLE IF EXISTS users;

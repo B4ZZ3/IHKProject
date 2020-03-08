@@ -18,7 +18,7 @@
 
     public static function getById( $Id ) {
         $conn = new PDO( DB_DSN, DB_USERNAME, DB_PASSWORD );
-        $sql = "SELECT * FROM kategorie WHERE Id = :Id";
+        $sql = "SELECT * FROM category WHERE Id = :Id";
         $st = $conn->prepare( $sql );
         $st->bindValue( ":Id", $Id, PDO::PARAM_INT );
         $st->execute();
@@ -30,7 +30,7 @@
     
     public static function getList() {
         $conn = new PDO( DB_DSN, DB_USERNAME, DB_PASSWORD );
-        $sql = "SELECT * FROM kategorie ORDER BY Name ASC";
+        $sql = "SELECT * FROM category ORDER BY Name ASC";
 
         $st = $conn->prepare( $sql );
         $st->execute();
@@ -52,7 +52,7 @@
             trigger_error ( "Kategorie::insert(): Versuch eine Kategorie einzufügen, deren Id bereits gesetzt ist (Id: $this->Id).", E_USER_ERROR );
 
         $conn = new PDO( DB_DSN, DB_USERNAME, DB_PASSWORD );
-        $sql = "INSERT INTO kategorie (Name) VALUES (:Name)";
+        $sql = "INSERT INTO category (Name) VALUES (:Name)";
         $st = $conn->prepare ( $sql );
         $st->bindValue( ":Name", $this->Name, PDO::PARAM_STR );
         $st->execute();
@@ -65,7 +65,7 @@
             trigger_error ( "Kategorie::update(): Versuch eine Kategorie zu aktualisieren, deren Id noch nicht gesetzt ist.", E_USER_ERROR );
 
         $conn = new PDO( DB_DSN, DB_USERNAME, DB_PASSWORD );
-        $sql = "UPDATE kategorie SET Name=:Name WHERE Id = :Id";
+        $sql = "UPDATE category SET Name=:Name WHERE Id = :Id";
         $st = $conn->prepare ( $sql );
         $st->bindValue( ":Name", $this->Name, PDO::PARAM_STR );
         $st->bindValue( ":Id", $this->Id, PDO::PARAM_INT );
@@ -79,7 +79,7 @@
             trigger_error ( "Kategorie::delete(): Versuch eine Kategorie zu löschen, deren Id noch nicht gesetzt ist.", E_USER_ERROR );
 
         $conn = new PDO( DB_DSN, DB_USERNAME, DB_PASSWORD );
-        $st = $conn->prepare ( "DELETE FROM kategorie WHERE Id = :Id LIMIT 1" );
+        $st = $conn->prepare ( "DELETE FROM category WHERE Id = :Id LIMIT 1" );
         $st->bindValue( ":Id", $this->Id, PDO::PARAM_INT );
         $st->execute();
         $conn = null;

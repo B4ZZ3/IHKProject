@@ -20,7 +20,7 @@ class Inventur {
 
     public static function getAll() {
         $conn = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
-        $sql = "SELECT * FROM inventur WHERE Finished = 1";
+        $sql = "SELECT * FROM inventory WHERE Finished = 1";
         $st = $conn->prepare($sql);
         $st->execute();
         $list = array();

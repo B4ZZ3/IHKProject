@@ -30,7 +30,7 @@
 
     public static function getById($Id) {
         $conn = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
-        $sql = "SELECT * FROM geraete WHERE Id = :Id";
+        $sql = "SELECT * FROM item WHERE Id = :Id";
         $st = $conn->prepare($sql);
         $st->bindValue(":Id", $Id, PDO::PARAM_INT);
         $st->execute();
@@ -47,7 +47,7 @@
         $positionClause = $positionId ? "WHERE PositionId = :PositionId" : "";
         $inStockClause = $inStock ? "WHERE InLager = :InLager" : "";
         $damageClause = $damage ? "WHERE Schaden = :Schaden" : "";
-        $sql = "SELECT * FROM geraete $categoryClause $producerClause $positionClause $inStockClause $damageClause ORDER BY Id ASC";
+        $sql = "SELECT * FROM item $categoryClause $producerClause $positionClause $inStockClause $damageClause ORDER BY Id ASC";
 
         $st = $conn->prepare( $sql );
         if ( $categoryId ) $st->bindValue( ":KategorieId", $categoryId, PDO::PARAM_INT );
@@ -74,7 +74,7 @@
             trigger_error("Item::insert(): Versuch ein Item einzufügen, dessen Id bereits gesetzt ist (Id: $this->id).", E_USER_ERROR);
 
         $conn = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
-        $sql = "INSERT INTO geraete (Inventarnummer, Name, HerstellerId, KategorieId, PositionId, InLager) VALUES (:Inventarnummer, :Name, :HerstellerId, :KategorieId, :PositionId, :InLager)";
+        $sql = "INSERT INTO item (Inventarnummer, Name, HerstellerId, KategorieId, PositionId, InLager) VALUES (:Inventarnummer, :Name, :HerstellerId, :KategorieId, :PositionId, :InLager)";
         $st = $conn->prepare($sql);
         $st->bindValue(":Inventarnummer", $this->Inventarnummer, PDO::PARAM_INT);
         $st->bindValue(":Name", $this->Name, PDO::PARAM_STR);
@@ -92,7 +92,7 @@
             trigger_error("Item::update(): Versuch ein Item zu aktualisieren, dessen Id noch nicht gestzt ist.", E_USER_ERROR);
     
         $conn = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
-        $sql = "UPDATE geraete SET Inventarnummer = :Inventarnummer, Name = :Name, HerstellerId = :HerstellerId, KategorieId = :KategorieId, PositionId = :PositionId, InLager = :InLager WHERE Id = :Id";
+        $sql = "UPDATE item SET Inventarnummer = :Inventarnummer, Name = :Name, HerstellerId = :HerstellerId, KategorieId = :KategorieId, PositionId = :PositionId, InLager = :InLager WHERE Id = :Id";
         $st = $conn->prepare($sql);
         $st->bindValue(":Inventarnummer", $this->Inventarnummer, PDO::PARAM_INT);
         $st->bindValue(":Name", $this->Name, PDO::PARAM_STR);
@@ -109,7 +109,7 @@
         if(is_null($this->Id)) trigger_error("Item::delete(): Versuch ein Item zu löschen, dessen Id noch nicht gesetzt ist.", E_USER_ERROR);
 
         $conn = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
-        $sql = "DELETE FROM geraete WHERE Id = :Id LIMIT 1";
+        $sql = "DELETE FROM item WHERE Id = :Id LIMIT 1";
         $st = $conn->prepare($sql);
         $st->bindValue(":Id", $this->Id, PDO::PARAM_INT);
         $st->execute();

@@ -23,7 +23,7 @@ class Inventur {
 
     public static function getUnfinished() {
         $conn = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
-        $sql = "SELECT * FROM inventur WHERE Finished = 0 LIMIT 1";
+        $sql = "SELECT * FROM inventory WHERE Finished = 0 LIMIT 1";
         $st = $conn->prepare($sql);
         $st->execute();
         $row = $st->fetch();
@@ -37,7 +37,7 @@ class Inventur {
             trigger_error("Inventur::finish(): Versuch eine Inventur zu beenden, deren Id noch nicht gesetzt ist.", E_USER_ERROR);
     
         $conn = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
-        $sql = "UPDATE inventur SET Finished = 1 WHERE Id = :Id";
+        $sql = "UPDATE inventory SET Finished = 1 WHERE Id = :Id";
         $st = $conn->prepare($sql);
         $st->bindValue(":Id", $this->Id, PDO::PARAM_INT);
         $st->execute();
@@ -46,7 +46,7 @@ class Inventur {
 
     function start() {
         $conn = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
-        $sql = "INSERT INTO inventur SET Mitarbeiter = :Mitarbeiter";
+        $sql = "INSERT INTO inventory SET Mitarbeiter = :Mitarbeiter";
         $st = $conn->prepare($sql);
         $st->bindValue(":Mitarbeiter", $this->Mitarbeiter, PDO::PARAM_STR);
         $st->execute();
@@ -56,7 +56,7 @@ class Inventur {
 
     function insertGeraete() {
         $conn = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
-        $sql = "INSERT INTO geraeteinventur (InventurId, GeraeteId) VALUES(:InventurId, (SELECT Id FROM geraete WHERE Inventarnummer = :Inventarnummer))";
+        $sql = "INSERT INTO iteminventory (InventurId, GeraeteId) VALUES(:InventurId, (SELECT Id FROM item WHERE Inventarnummer = :Inventarnummer))";
         $sql2 = "UPDATE geraete SET PositionId = :PositionId WHERE Inventarnummer = :Inventarnummer";
 
         $st = $conn->prepare($sql);

@@ -18,7 +18,7 @@ class Item {
 
     function getRemainingGeraete() {
         $conn = new PDO( DB_DSN, DB_USERNAME, DB_PASSWORD );
-        $sql = "SELECT g.Name, g.Inventarnummer, g.InLager, b.Name AS PositionName FROM geraete AS g INNER JOIN positions AS b ON g.PositionId = b.Id WHERE g.Id NOT IN (SELECT GeraeteId FROM geraeteInventur) ORDER BY g.Id ASC"; 
+        $sql = "SELECT g.Name, g.Inventarnummer, g.InLager, b.Name AS PositionName FROM item AS g INNER JOIN positions AS b ON g.PositionId = b.Id WHERE g.Id NOT IN (SELECT GeraeteId FROM iteminventory) ORDER BY g.Id ASC"; 
         $st = $conn->prepare( $sql );
         $st->execute();
         $list = array();
@@ -36,7 +36,7 @@ class Item {
 
     function reportSchaden() {
         $conn = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
-        $sql = "UPDATE geraete SET Schaden = 1 WHERE Inventarnummer = :Inventarnummer";
+        $sql = "UPDATE item SET Schaden = 1 WHERE Inventarnummer = :Inventarnummer";
         $st = $conn->prepare($sql);
         $st->bindValue(":Inventarnummer", $this->Inventarnummer, PDO::PARAM_INT);
         $st->execute();
