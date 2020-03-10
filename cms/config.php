@@ -2,7 +2,7 @@
 // $2y$07$ZvJgzaPcVfJJvFaXR1PRBOaLjruqAh/kWw4/o8T8XAZPIsH5xdHCW
 ini_set("display_errors", true); //just for debugging, on live server false
 date_default_timezone_set("Europe/Berlin");
-define("DB_DSN", "mysql:host=localhost;dbname=inventareoa;charset=utf8");
+define("DB_DSN", "mysql:host=localhost;dbname=inventoryeoa;charset=utf8");
 define("DB_USERNAME", "eoaInventar");
 define("DB_PASSWORD", "Test4711");
 define("USERNAME", "admin");

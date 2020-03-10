@@ -8,7 +8,7 @@
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="navbar-brand" href="index.php">
-                            <img src="images/logo_eoa.png" height="30" alt="EOA Logo">
+                            <img src="images/eoa_logo_wht.png" height="30" alt="EOA Logo">
                         </a>
                     </li>
                     <li class="nav-item">

@@ -128,8 +128,9 @@ function newItem() {
 
   if ( isset( $_POST['saveChanges'] ) ) {
     $item = new Item;
-    $item->InLager = (int)$_POST['InLager'];
+    console_log($_POST);
     $item->storeFormValues( $_POST );
+    console_log($item);
     $item->insert();
     $item->generateQRCode();
     header( "Location: index.php?status=changesSaved" );
@@ -160,7 +161,6 @@ function editItem() {
       return;
     }
 
-    $item->InLager = (int)$_POST['InLager'];
     $item->storeFormValues($_POST);
     $item->update();
     $item->generateQRCode();
@@ -329,7 +329,6 @@ function editProperty($property) {
     $results['formAction'] = "editProducer";
     $results['nameId'] = "producerId";
     $results['placeholder'] = "des Herstellers";
-    console_log("ja");
 
     if ( isset( $_POST['saveChanges'] ) ) {
       if ( !$producer = Producer::getById( (int)$_POST['producerId'] ) ) {
@@ -500,7 +499,7 @@ function viewList($property) {
   
 }
 
-//Inventur-Section
+//Inventory-Section
 function viewInventur() {
   $data = Inventur::getAll();
   $results['inventur'] = $data['results'];

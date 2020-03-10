@@ -1,7 +1,7 @@
 <?php
 ini_set("display_errors", true); //just for debugging, on live server false
 date_default_timezone_set("Europe/Berlin");
-define("DB_DSN", "mysql:host=localhost;dbname=inventareoa");
+define("DB_DSN", "mysql:host=localhost;dbname=inventoryeoa");
 define("DB_USERNAME", "eoaInventar");
 define("DB_PASSWORD", "Test4711");
 define("CLASS_PATH", "classes");

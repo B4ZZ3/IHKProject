@@ -16,6 +16,6 @@
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top d-flex justify-content-center">
         <a class="navbar-brand" href="index.php">
-            <img src="images/logo_eoa.png" height="30" alt="EOA Logo"> eoa Inventur
+            <img src="images/eoa_logo_wht.png" height="30" alt="EOA Logo">&nbsp;&nbsp;Inventur
         </a>
     </nav>

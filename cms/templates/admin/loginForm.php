@@ -9,7 +9,7 @@
   </head>
   <body class="text-center flex-column-reverse login-form">
     <form class="form-signin" action="index.php?action=login" method="post">
-      <img class="mb-4" src="images/logo_eoa_b.png" alt="Elements of Art" style="max-width:80%;">
+      <img class="mb-4" src="images/eoa_logo_blk.png" alt="Elements of Art" style="height: 50px;">
       <h1 class="h3 mb-3 font-weight-normal">Bitte einloggen</h1>
       <label for="username" class="sr-only">Benutzername</label>
       <input type="text" name="username" id="username" class="form-control" placeholder="Benutzername" required="" autofocus="">

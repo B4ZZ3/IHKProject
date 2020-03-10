@@ -14,14 +14,14 @@
     public $Schaden = null;
 
     public function __construct ($data=array()) {
-        if(isset($data['Id'])) $this->Id = (int)$data['Id'];
+        if( isset($data['Id']) ) $this->Id = (int) $data['Id'];
         if(isset($data['Inventarnummer'])) $this->Inventarnummer = (int)$data['Inventarnummer'];
         if(isset($data['Name'])) $this->Name = $data['Name'];
         if(isset($data['HerstellerId'])) $this->HerstellerId = (int)$data['HerstellerId'];
         if(isset($data['KategorieId'])) $this->KategorieId = (int)$data['KategorieId'];
         if(isset($data['PositionId'])) $this->PositionId = (int)$data['PositionId'];
-        if(!empty($data['InLager'])) $this->InLager = (int)$data['InLager'];
-        if(!empty($data['Schaden'])) $this->Schaden = (int)$data['Schaden'];  
+        if(isset($data['InLager'])) $this->InLager = (int)$data['InLager'];
+        if(isset($data['Schaden'])) $this->Schaden = (int)$data['Schaden'];  
     }
 
     public function storeFormValues($params) {
@@ -70,11 +70,8 @@
     }
     
     public function insert() {
-        if(!is_null($this->Id)) 
-            trigger_error("Item::insert(): Versuch ein Item einzufügen, dessen Id bereits gesetzt ist (Id: $this->id).", E_USER_ERROR);
-
         $conn = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
-        $sql = "INSERT INTO item (Inventarnummer, Name, HerstellerId, KategorieId, PositionId, InLager) VALUES (:Inventarnummer, :Name, :HerstellerId, :KategorieId, :PositionId, :InLager)";
+        $sql = "INSERT INTO item (Inventarnummer, Name, HerstellerId, KategorieId, PositionId, InLager, Schaden) VALUES (:Inventarnummer, :Name, :HerstellerId, :KategorieId, :PositionId, :InLager, :Schaden)";
         $st = $conn->prepare($sql);
         $st->bindValue(":Inventarnummer", $this->Inventarnummer, PDO::PARAM_INT);
         $st->bindValue(":Name", $this->Name, PDO::PARAM_STR);
@@ -82,8 +79,9 @@
         $st->bindValue(":KategorieId", $this->KategorieId, PDO::PARAM_INT);
         $st->bindValue(":PositionId", $this->PositionId, PDO::PARAM_INT);
         $st->bindValue(":InLager", $this->InLager, PDO::PARAM_INT);
+        $st->bindValue(":Schaden", $this->Schaden, PDO::PARAM_INT);
         $st->execute();
-        $this->id = $conn->lastInsertId();
+        $this->Id = $conn->lastInsertId();
         $conn = null;
     }
 
@@ -92,7 +90,7 @@
             trigger_error("Item::update(): Versuch ein Item zu aktualisieren, dessen Id noch nicht gestzt ist.", E_USER_ERROR);
     
         $conn = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
-        $sql = "UPDATE item SET Inventarnummer = :Inventarnummer, Name = :Name, HerstellerId = :HerstellerId, KategorieId = :KategorieId, PositionId = :PositionId, InLager = :InLager WHERE Id = :Id";
+        $sql = "UPDATE item SET Inventarnummer = :Inventarnummer, Name = :Name, HerstellerId = :HerstellerId, KategorieId = :KategorieId, PositionId = :PositionId, InLager = :InLager, Schaden = :Schaden WHERE Id = :Id";
         $st = $conn->prepare($sql);
         $st->bindValue(":Inventarnummer", $this->Inventarnummer, PDO::PARAM_INT);
         $st->bindValue(":Name", $this->Name, PDO::PARAM_STR);
@@ -100,13 +98,15 @@
         $st->bindValue(":KategorieId", $this->KategorieId, PDO::PARAM_INT);
         $st->bindValue(":PositionId", $this->PositionId, PDO::PARAM_INT);
         $st->bindValue(":InLager", $this->InLager, PDO::PARAM_INT);
+        $st->bindValue(":Schaden", $this->Schaden, PDO::PARAM_INT);
         $st->bindValue(":Id", $this->Id, PDO::PARAM_INT);
         $st->execute();
         $conn = null;
     }
 
     public function delete() {
-        if(is_null($this->Id)) trigger_error("Item::delete(): Versuch ein Item zu löschen, dessen Id noch nicht gesetzt ist.", E_USER_ERROR);
+        if(is_null($this->Id)) 
+            trigger_error("Item::delete(): Versuch ein Item zu löschen, dessen Id noch nicht gesetzt ist.", E_USER_ERROR);
 
         $conn = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
         $sql = "DELETE FROM item WHERE Id = :Id LIMIT 1";
