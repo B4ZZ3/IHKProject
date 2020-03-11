@@ -1,7 +1,7 @@
 <?php include "templates/admin/adminNavigation.php"?>
 <?php include "templates/include/header.php" ?>
 
-<div class="container" style="margin-top:6%;">
+<div class="container" style="margin-top:80px;">
         <div class="d-flex align-items-center justify-content-between">
                 <h1><?php echo $results['pageTitle']?></h1>
                 <a class="btn btn-outline-dark" href="index.php?action=new<?php echo $results['NameProperty']?>">Neu hinzufügen</a>

@@ -1,7 +1,7 @@
 <?php include "templates/include/header.php" ?>
 <?php include "templates/admin/adminNavigation.php" ?>
 
-<div class="container" style="margin-top:6%;">
+<div class="container" style="margin-top:80px;">
     <div class="d-flex align-items-center justify-content-between">
         <h1>Alle durchgeführten Inventuren</h1>
     </div>

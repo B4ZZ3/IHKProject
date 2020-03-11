@@ -1,7 +1,7 @@
 <?php include "templates/include/header.php" ?>
 <?php include "templates/admin/adminNavigation.php" ?>
 
-    <div class="container" style="margin-top:6%;">
+    <div class="container" style="margin-top:80px;">
         <h1><?php echo $results['pageTitle']?></h1>
         <hr />
 
