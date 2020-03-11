@@ -34,5 +34,15 @@ class Position extends Property {
     public function delete() {
         parent::deleteInto(self::TABLENAME);
     }
+
+    public function generateQRCode($InsertId) {
+        console_log($InsertId);
+        $fileName = 'buero_Id_'.$InsertId.'.png';
+        $pngAbsoluteFilePath = QRCODE_PATH_BUERO.$fileName;
+
+        if (!file_exists($pngAbsoluteFilePath)) {
+            QRcode::png('BueroId='.$this->Id, $pngAbsoluteFilePath);
+        }
+    }
 }
 ?>
