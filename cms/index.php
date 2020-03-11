@@ -400,7 +400,6 @@ function listProperties($property) {
   if($property === "category") {
     $data = Category::getList();
     $results['properties'] = $data['results'];
-    $results['totalRows'] = $data['totalRows'];
     $results['pageTitle'] = "Alle Geräte Kategorien";
     $results['NameProperty'] = "Category";
     $results['nameProperty'] = "category";
@@ -418,7 +417,6 @@ function listProperties($property) {
   elseif($property === "position") {
     $data = Position::getList();
     $results['properties'] = $data['results'];
-    $results['totalRows'] = $data['totalRows'];
     $results['pageTitle'] = "Alle Büros";
     $results['NameProperty'] = "Position";
     $results['nameProperty'] = "position";
@@ -436,7 +434,6 @@ function listProperties($property) {
   elseif($property === "producer") {
     $data = Producer::getList();
     $results['properties'] = $data['results'];
-    $results['totalRows'] = $data['totalRows'];
     $results['pageTitle'] = "Alle Hersteller";
     $results['NameProperty'] = "Producer";
     $results['nameProperty'] = "producer";
@@ -461,7 +458,6 @@ function viewList($property) {
     $results['category'] = Category::getById( $categoryId );
     $data = Item::getList($results['category'] ? $results['category']->Id : null, null, null, null, null);
     $results['items'] = $data['results'];
-    $results['totalRows'] = $data['totalRows'];
     $results['pageHeading'] = $results['category'] ?  $results['category']->Name : "Alle Geräte";
     $results['pageTitle'] ="Alle Geräte der Kategorie: ". $results['pageHeading'];
   }
@@ -470,7 +466,6 @@ function viewList($property) {
     $results['position'] = Position::getById( $positionId );
     $data = Item::getList(null, null, $results['position'] ? $results['position']->Id : null, null, null);
     $results['items'] = $data['results'];
-    $results['totalRows'] = $data['totalRows'];
     $results['pageHeading'] = $results['position'] ?  $results['position']->Name : "Alle Geräte";
     $results['pageTitle'] ="Alle Geräte in dem Büro: ". $results['pageHeading'];
   }
@@ -479,7 +474,6 @@ function viewList($property) {
     $results['producer'] = Producer::getById( $producerId );
     $data = Item::getList(null, $results['producer'] ? $results['producer']->Id : null, null, null, null);
     $results['items'] = $data['results'];
-    $results['totalRows'] = $data['totalRows'];
     $results['pageHeading'] = $results['producer'] ?  $results['producer']->Name : "Alle Geräte";
     $results['pageTitle'] ="Alle Geräte des Herstellers: ". $results['pageHeading'];
   }

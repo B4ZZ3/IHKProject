@@ -21,7 +21,5 @@
     }
 ?>
     </ul>
-<hr />
-<p>Insgesamt <?php echo $results['totalRows']?> Gerät<?php echo ( $results['totalRows'] != 1 ) ? 'e' : '' ?></p>
 </div>
 <?php include "templates/include/footer.php" ?>

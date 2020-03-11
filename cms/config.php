@@ -11,6 +11,7 @@ define("TEMPLATE_PATH", "templates");
 define("QRCODE_PATH_GERAETE", "qrcodes/geraete/");
 define("QRCODE_PATH_BUERO", "qrcodes/bueros/");
 require(CLASS_PATH."/Item.php");
+require(CLASS_PATH."/Property.php");
 require(CLASS_PATH."/Category.php");
 require(CLASS_PATH."/Producer.php");
 require(CLASS_PATH."/Position.php");

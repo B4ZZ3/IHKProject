@@ -38,8 +38,6 @@
     }
 ?>
         </ul>
-        <hr />
-        <p>Insgesamt <?php echo $results['totalRows']?></p>
 </div>
 
 <!--Overview-Modals-->
