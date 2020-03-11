@@ -24,8 +24,6 @@ class Property {
         $st->execute();
         return $st->fetch();
         $conn = null;
-        // if ( $row ) 
-        //     return new Producer( $row );
     }
     
     public static function getTheList($table) {
@@ -34,9 +32,6 @@ class Property {
         $st = $conn->prepare( $sql );
         $st->execute();
         return $st->fetchAll();
-        // $list = array();
-
-        // return $row = $st->fetch();
         $conn = null;
     }
     
