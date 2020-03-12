@@ -3,7 +3,7 @@
  * Class to handle inheritance
  */
 
-class Property {
+abstract class Property {
     public $Id = null;
     public $Name = null;
     
